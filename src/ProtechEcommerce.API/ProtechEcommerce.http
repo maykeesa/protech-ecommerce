@@ -1,0 +1,6 @@
+@ProtechEcommerce_HostAddress = http://localhost:5098
+
+GET {{ProtechEcommerce_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ProtechEcommerce.API/ProtechEcommerce.API.csproj" />
+    <Project Path="src/ProtechEcommerce.Application/ProtechEcommerce.Application.csproj" />
+    <Project Path="src/ProtechEcommerce.Domain/ProtechEcommerce.Domain.csproj" />
+    <Project Path="src/ProtechEcommerce.Infrastructure/ProtechEcommerce.Infrastructure.csproj" />
+  </Folder>
+</Solution>
