@@ -4,16 +4,25 @@ using ProtechEcommerce.Domain.Exceptions;
 
 namespace ProtechEcommerce.API.ExceptionHandling;
 
-public class GlobalExceptionHandler : IExceptionHandler
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        var (statusCode, title) = exception switch
+        var (statusCode, title, detail) = exception switch
         {
-            EntityNotFoundException => (StatusCodes.Status404NotFound, "Recurso nao encontrado"),
-            ServiceException => (StatusCodes.Status400BadRequest, "Erro de regra de negocio"),
-            _ => (StatusCodes.Status500InternalServerError, "Erro interno do servidor")
+            EntityNotFoundException => (StatusCodes.Status404NotFound, "Recurso nao encontrado", exception.Message),
+            ServiceException => (StatusCodes.Status400BadRequest, "Erro de regra de negocio", exception.Message),
+            _ => (StatusCodes.Status500InternalServerError, "Erro interno do servidor", "Ocorreu um erro inesperado. Tente novamente mais tarde.")
         };
+
+        if (statusCode == StatusCodes.Status500InternalServerError)
+        {
+            logger.LogError(exception, "Erro nao tratado ao processar {Method} {Path}", httpContext.Request.Method, httpContext.Request.Path);
+        }
+        else
+        {
+            logger.LogWarning(exception, "Erro esperado ao processar {Method} {Path}", httpContext.Request.Method, httpContext.Request.Path);
+        }
 
         httpContext.Response.StatusCode = statusCode;
 
@@ -21,7 +30,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             Status = statusCode,
             Title = title,
-            Detail = exception.Message
+            Detail = detail
         }, cancellationToken);
 
         return true;
