@@ -31,6 +31,30 @@ public class PedidoDTO
             [SwaggerSchema("Itens do pedido")]
             public List<ItemPedidoDTO.Request.Item> Itens { get; set; } = [];
         }
+
+        public class Filtro
+        {
+            [SwaggerSchema("Identificador do pedido")]
+            public Guid? Id { get; set; }
+
+            [SwaggerSchema("Identificador do comprador")]
+            public Guid? CompradorId { get; set; }
+
+            [SwaggerSchema("Status do pedido")]
+            public StatusPedido? Status { get; set; }
+
+            [SwaggerSchema("Data de criacao inicial")]
+            public DateTime? DataCriacaoInicial { get; set; }
+
+            [SwaggerSchema("Data de criacao final")]
+            public DateTime? DataCriacaoFinal { get; set; }
+
+            [SwaggerSchema("Data de atualizacao inicial")]
+            public DateTime? DataAtualizacaoInicial { get; set; }
+
+            [SwaggerSchema("Data de atualizacao final")]
+            public DateTime? DataAtualizacaoFinal { get; set; }
+        }
     }
 
     public static class Response

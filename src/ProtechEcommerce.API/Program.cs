@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using ProtechEcommerce.API.Endpoints;
 using ProtechEcommerce.API.ExceptionHandling;
 using ProtechEcommerce.Application;
@@ -5,21 +7,40 @@ using ProtechEcommerce.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.EnableAnnotations();
-    options.CustomSchemaIds(type =>
+    options.CustomSchemaIds(ObterNomeSchema);
+});
+
+static string ObterNomeSchema(Type type)
+{
+    var nomes = new List<string>();
+    for (var atual = type; atual is not null; atual = atual.DeclaringType)
     {
-        var nomes = new List<string>();
-        for (var atual = type; atual is not null; atual = atual.DeclaringType)
+        var nome = atual.Name;
+        var indiceBacktick = nome.IndexOf('`');
+        if (indiceBacktick > 0)
         {
-            nomes.Insert(0, atual.Name);
+            nome = nome[..indiceBacktick];
         }
 
-        return string.Join(".", nomes);
-    });
-});
+        nomes.Insert(0, nome);
+    }
+
+    var nomeBase = string.Join(".", nomes);
+
+    if (!type.IsGenericType)
+        return nomeBase;
+
+    var argumentos = type.GetGenericArguments().Select(ObterNomeSchema);
+    return $"{nomeBase}Of{string.Join("And", argumentos)}";
+}
+
 builder.Services.AddAutoMapper(cfg => { }, typeof(Program).Assembly);
 builder.Services.AddValidation();
 builder.Services.AddProblemDetails();
@@ -33,7 +54,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.DocExpansion(DocExpansion.None);
+        options.EnableFilter();
+        options.EnableDeepLinking();
+    });
 }
 
 app.UseExceptionHandler();

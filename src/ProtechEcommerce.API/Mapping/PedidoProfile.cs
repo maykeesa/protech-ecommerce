@@ -12,5 +12,6 @@ public class PedidoProfile : Profile
         CreateMap<ItemPedidoDTO.Request.Item, ItemPedidoInput>();
         CreateMap<ItemPedido, ItemPedidoDTO.Response.Item>();
         CreateMap<Pedido, PedidoDTO.Response.Pedido>();
+        CreateMap<PedidoDTO.Request.Filtro, PedidoFiltro>();
     }
 }

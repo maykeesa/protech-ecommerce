@@ -6,9 +6,9 @@ namespace ProtechEcommerce.Application.Interfaces;
 
 public interface IPedidoService
 {
-    Task<List<Pedido>> BuscarAsync();
-    Task<Pedido> BuscarPorIdAsync(Guid id);
-    Task<Pedido> CadastrarAsync(Guid compradorId, List<ItemPedidoInput> itens);
-    Task<Pedido> AtualizarAsync(Guid id, StatusPedido status, List<ItemPedidoInput> itens);
-    Task ExcluirAsync(Guid id);
+    Task<PaginaResultado<Pedido>> BuscarAsync(PedidoFiltro filtro, int pagina, int tamanhoPagina, CancellationToken cancellationToken = default);
+    Task<Pedido> BuscarPorIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Pedido> CadastrarAsync(Guid compradorId, List<ItemPedidoInput> itens, CancellationToken cancellationToken = default);
+    Task<Pedido> AtualizarAsync(Guid id, StatusPedido status, List<ItemPedidoInput> itens, CancellationToken cancellationToken = default);
+    Task ExcluirAsync(Guid id, CancellationToken cancellationToken = default);
 }

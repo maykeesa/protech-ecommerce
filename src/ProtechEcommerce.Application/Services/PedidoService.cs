@@ -14,38 +14,41 @@ internal class PedidoService(
     ICompradorRepository compradorRepository,
     PedidoServiceHelper pedidoServiceHelper) : IPedidoService
 {
-    public async Task<List<Pedido>> BuscarAsync()
+    public async Task<PaginaResultado<Pedido>> BuscarAsync(PedidoFiltro filtro, int pagina, int tamanhoPagina, CancellationToken cancellationToken = default)
     {
-        return await pedidoRepository.ListAsync(new PedidoComItensSpecification());
+        var totalItens = await pedidoRepository.CountAsync(new PedidoFiltroSpecification(filtro), cancellationToken);
+        var itens = await pedidoRepository.ListAsync(new PedidoFiltroPaginadoSpecification(filtro, pagina, tamanhoPagina), cancellationToken);
+
+        return new PaginaResultado<Pedido>(itens, pagina, tamanhoPagina, totalItens);
     }
 
-    public async Task<Pedido> BuscarPorIdAsync(Guid id)
+    public async Task<Pedido> BuscarPorIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await pedidoRepository.FirstOrDefaultAsync(new PedidoComItensSpecification(id))
+        return await pedidoRepository.FirstOrDefaultAsync(new PedidoComItensSomenteLeituraSpecification(id), cancellationToken)
             ?? throw new EntityNotFoundException("Pedido nao encontrado");
     }
 
-    public async Task<Pedido> CadastrarAsync(Guid compradorId, List<ItemPedidoInput> itens)
+    public async Task<Pedido> CadastrarAsync(Guid compradorId, List<ItemPedidoInput> itens, CancellationToken cancellationToken = default)
     {
         if (itens.Count == 0)
             throw new ServiceException("O pedido deve ter ao menos um item");
 
-        var comprador = await compradorRepository.GetByIdAsync(compradorId)
+        var comprador = await compradorRepository.GetByIdAsync(compradorId, cancellationToken)
             ?? throw new EntityNotFoundException("Comprador nao encontrado");
 
         var pedido = new Pedido
         {
             CompradorId = comprador.Id,
-            Status = StatusPedido.Iniciado,
-            Itens = await pedidoServiceHelper.MontarItensAsync(itens)
+            Status = StatusPedido.INICIADO,
+            Itens = await pedidoServiceHelper.MontarItensAsync(itens, cancellationToken)
         };
 
-        return await pedidoRepository.AddAsync(pedido);
+        return await pedidoRepository.AddAsync(pedido, cancellationToken);
     }
 
-    public async Task<Pedido> AtualizarAsync(Guid id, StatusPedido status, List<ItemPedidoInput> itens)
+    public async Task<Pedido> AtualizarAsync(Guid id, StatusPedido status, List<ItemPedidoInput> itens, CancellationToken cancellationToken = default)
     {
-        var pedido = await pedidoRepository.FirstOrDefaultAsync(new PedidoComItensSpecification(id))
+        var pedido = await pedidoRepository.FirstOrDefaultAsync(new PedidoComItensSpecification(id), cancellationToken)
             ?? throw new EntityNotFoundException("Pedido nao encontrado");
 
         var estadoAtual = EstadoPedidoFactory.ObterEstado(pedido.Status);
@@ -59,7 +62,7 @@ internal class PedidoService(
                 throw new ServiceException("O pedido deve ter ao menos um item");
 
             pedido.Itens.Clear();
-            foreach (var item in await pedidoServiceHelper.MontarItensAsync(itens))
+            foreach (var item in await pedidoServiceHelper.MontarItensAsync(itens, cancellationToken))
             {
                 pedido.Itens.Add(item);
             }
@@ -67,15 +70,15 @@ internal class PedidoService(
 
         pedido.Status = status;
 
-        await pedidoRepository.SaveChangesAsync();
+        await pedidoRepository.SaveChangesAsync(cancellationToken);
         return pedido;
     }
 
-    public async Task ExcluirAsync(Guid id)
+    public async Task ExcluirAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var pedido = await pedidoRepository.GetByIdAsync(id)
+        var pedido = await pedidoRepository.GetByIdAsync(id, cancellationToken)
             ?? throw new EntityNotFoundException("Pedido nao encontrado");
 
-        await pedidoRepository.DeleteAsync(pedido);
+        await pedidoRepository.DeleteAsync(pedido, cancellationToken);
     }
 }
