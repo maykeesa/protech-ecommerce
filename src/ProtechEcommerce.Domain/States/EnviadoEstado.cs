@@ -4,8 +4,8 @@ namespace ProtechEcommerce.Domain.States;
 
 public class EnviadoEstado : IEstadoPedido
 {
-    public StatusPedido Status => StatusPedido.Enviado;
+    public StatusPedido Status => StatusPedido.ENVIADO;
     public bool PermiteAlterarItens => false;
 
-    public bool PodeTransicionarPara(StatusPedido novoStatus) => novoStatus == StatusPedido.Enviado;
+    public bool PodeTransicionarPara(StatusPedido novoStatus) => novoStatus == StatusPedido.ENVIADO;
 }

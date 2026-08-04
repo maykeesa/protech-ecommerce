@@ -4,14 +4,14 @@ namespace ProtechEcommerce.Domain.States;
 
 public class IniciadoEstado : IEstadoPedido
 {
-    public StatusPedido Status => StatusPedido.Iniciado;
+    public StatusPedido Status => StatusPedido.INICIADO;
     public bool PermiteAlterarItens => true;
 
     public bool PodeTransicionarPara(StatusPedido novoStatus) => novoStatus switch
     {
-        StatusPedido.Iniciado => true,
-        StatusPedido.Processado => true,
-        StatusPedido.Cancelado => true,
+        StatusPedido.INICIADO => true,
+        StatusPedido.PROCESSADO => true,
+        StatusPedido.CANCELADO => true,
         _ => false
     };
 }

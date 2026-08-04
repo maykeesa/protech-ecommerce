@@ -4,8 +4,8 @@ namespace ProtechEcommerce.Domain.States;
 
 public class CanceladoEstado : IEstadoPedido
 {
-    public StatusPedido Status => StatusPedido.Cancelado;
+    public StatusPedido Status => StatusPedido.CANCELADO;
     public bool PermiteAlterarItens => false;
 
-    public bool PodeTransicionarPara(StatusPedido novoStatus) => novoStatus == StatusPedido.Cancelado;
+    public bool PodeTransicionarPara(StatusPedido novoStatus) => novoStatus == StatusPedido.CANCELADO;
 }
