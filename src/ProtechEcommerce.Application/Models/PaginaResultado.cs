@@ -1,8 +1,8 @@
 namespace ProtechEcommerce.Application.Models;
 
-public class PaginaResultado<T>(List<T> itens, int paginaAtual, int tamanhoPagina, int totalItens)
+public class PaginaResultado<T>(List<T> dados, int paginaAtual, int tamanhoPagina, int totalItens)
 {
-    public List<T> Itens { get; } = itens;
+    public List<T> Dados { get; } = dados;
     public int PaginaAtual { get; } = paginaAtual;
     public int TamanhoPagina { get; } = tamanhoPagina;
     public int TotalItens { get; } = totalItens;

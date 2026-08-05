@@ -10,7 +10,7 @@ public static class PaginaResultadoExtensions
     {
         return new PaginaResponseDTO<TDto>
         {
-            Itens = mapper.Map<List<TDto>>(resultado.Itens),
+            Dados = mapper.Map<List<TDto>>(resultado.Dados),
             PaginaAtual = resultado.PaginaAtual,
             TamanhoPagina = resultado.TamanhoPagina,
             TotalItens = resultado.TotalItens,
