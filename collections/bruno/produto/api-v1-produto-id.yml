@@ -1,0 +1,15 @@
+info:
+  name: /api/v1/produtos/:id
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: http://localhost:5098/api/v1/produtos/3642775f-2b41-44a0-894e-8bf03c5d54e4
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

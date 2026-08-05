@@ -1,0 +1,404 @@
+{
+  "info": {
+    "_postman_id": "b32b50dd-abe8-4ec1-bf3e-3644db1545b7",
+    "name": "protech-ecommerce",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "comprador",
+      "item": [
+        {
+          "name": "/api/v1/compradores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/compradores",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "compradores"
+              ],
+              "query": [
+                {
+                  "key": "Id",
+                  "value": "c16be931-4517-437e-9de6-0f661b2834da",
+                  "disabled": true
+                },
+                {
+                  "key": "Nome",
+                  "value": "Maria",
+                  "disabled": true
+                },
+                {
+                  "key": "CpfCnpj",
+                  "value": "52998224725",
+                  "disabled": true
+                },
+                {
+                  "key": "DataCriacaoInicial",
+                  "value": "2026-08-01",
+                  "disabled": true
+                },
+                {
+                  "key": "DataCriacaoFinal",
+                  "value": "2026-08-31",
+                  "disabled": true
+                },
+                {
+                  "key": "DataAtualizacaoInicial",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "DataAtualizacaoFinal",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "Pagina",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "TamanhoPagina",
+                  "value": "15",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/v1/compradores/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/compradores/c16be931-4517-437e-9de6-0f661b2834da",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "compradores",
+                "c16be931-4517-437e-9de6-0f661b2834da"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "pedido",
+      "item": [
+        {
+          "name": "/api/v1/pedidos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "pedidos"
+              ],
+              "query": [
+                {
+                  "key": "Id",
+                  "value": "59987996-d94f-42dd-b925-48c87b83da67",
+                  "disabled": true
+                },
+                {
+                  "key": "CompradorId",
+                  "value": "c16be931-4517-437e-9de6-0f661b2834da",
+                  "disabled": true
+                },
+                {
+                  "key": "Status",
+                  "value": "INICIADO",
+                  "disabled": true
+                },
+                {
+                  "key": "DataCriacaoInicial",
+                  "value": "2026-08-01",
+                  "disabled": true
+                },
+                {
+                  "key": "DataCriacaoFinal",
+                  "value": "2026-08-31",
+                  "disabled": true
+                },
+                {
+                  "key": "DataAtualizacaoInicial",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "DataAtualizacaoFinal",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "Pagina",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "TamanhoPagina",
+                  "value": "15",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/v1/pedidos/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/pedidos/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "pedidos",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "59987996-d94f-42dd-b925-48c87b83da67"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/v1/pedidos",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/pedidos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "pedidos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"compradorId\": \"a0429e57-c436-49b8-8869-259ae5e3741d\",\n  \"itens\": [\n    {\n      \"produtoId\": \"19c3d277-05a2-4df9-ad29-a6c447d32044\",\n      \"quantidade\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/v1/pedidos/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/pedidos/59987996-d94f-42dd-b925-48c87b83da67",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "pedidos",
+                "59987996-d94f-42dd-b925-48c87b83da67"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"PROCESSADO\",\n  \"itens\": [\n    {\n      \"produtoId\": \"3642775f-2b41-44a0-894e-8bf03c5d54e4\",\n      \"quantidade\": 3\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/v1/pedidos/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/pedidos/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "pedidos",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "59987996-d94f-42dd-b925-48c87b83da67"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "produto",
+      "item": [
+        {
+          "name": "/api/v1/produtos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/produtos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "produtos"
+              ],
+              "query": [
+                {
+                  "key": "Id",
+                  "value": "3642775f-2b41-44a0-894e-8bf03c5d54e4",
+                  "disabled": true
+                },
+                {
+                  "key": "Nome",
+                  "value": "Notebook",
+                  "disabled": true
+                },
+                {
+                  "key": "PrecoMinimo",
+                  "value": "50",
+                  "disabled": true
+                },
+                {
+                  "key": "PrecoMaximo",
+                  "value": "5000",
+                  "disabled": true
+                },
+                {
+                  "key": "DataCriacaoInicial",
+                  "value": "2026-08-01",
+                  "disabled": true
+                },
+                {
+                  "key": "DataCriacaoFinal",
+                  "value": "2026-08-31",
+                  "disabled": true
+                },
+                {
+                  "key": "DataAtualizacaoInicial",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "DataAtualizacaoFinal",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "Pagina",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "TamanhoPagina",
+                  "value": "15",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/api/v1/produtos/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5098/api/v1/produtos/3642775f-2b41-44a0-894e-8bf03c5d54e4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5098",
+              "path": [
+                "api",
+                "v1",
+                "produtos",
+                "3642775f-2b41-44a0-894e-8bf03c5d54e4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

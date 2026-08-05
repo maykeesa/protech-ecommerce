@@ -1,0 +1,27 @@
+info:
+  name: /api/v1/pedidos/:id
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:5098/api/v1/pedidos/59987996-d94f-42dd-b925-48c87b83da67
+  body:
+    type: json
+    data: |-
+      {
+        "status": "PROCESSADO",
+        "itens": [
+          {
+            "produtoId": "3642775f-2b41-44a0-894e-8bf03c5d54e4",
+            "quantidade": 3
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
