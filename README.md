@@ -8,8 +8,8 @@ Permite cadastrar, listar (com filtro dinâmico e paginação), alterar e exclui
 
 Na pasta [`collections/`](./collections) tem exemplos prontos de todas as requisições da API, já preenchidos com dados de exemplo (os mesmos que a aplicação semeia automaticamente no banco ao subir):
 
-- [`collections/bruno`](./collections/bruno) — collection no formato [Bruno](https://www.usebruno.com/)
-- [`collections/postman`](./collections/postman) — a mesma collection convertida pro formato [Postman](https://www.postman.com/) (`.postman_collection.json`, pronta pra importar via *File > Import*)
+- [`collections/bruno`](./collections/bruno)
+- [`collections/postman`](./collections/postman)
 
 ## 🚀 Como rodar?
 
@@ -20,8 +20,6 @@ Só precisa ter o [Docker](https://www.docker.com/) instalado. Na raiz do projet
 ```bash
 docker compose up --build
 ```
-
-Isso sobe o SQL Server, aguarda ele ficar saudável, sobe a API, e a própria aplicação aplica as migrations e popula o banco com dados de exemplo automaticamente no startup. Nenhum passo manual adicional é necessário.
 
 A API fica disponível em `http://localhost:5098`, com o Swagger em `http://localhost:5098/swagger`.
 
@@ -42,5 +40,3 @@ Pré-requisitos: [.NET SDK 10+](https://dotnet.microsoft.com/download) e um SQL 
 cd src/ProtechEcommerce.API
 dotnet run
 ```
-
-A própria aplicação já aplica as migrations e popula os dados de exemplo no startup (mesmo comportamento do Docker). A API sobe em `http://localhost:5098` (perfil `http` do `launchSettings.json`).
