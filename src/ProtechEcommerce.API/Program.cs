@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using ProtechEcommerce.API.Endpoints;
 using ProtechEcommerce.API.ExceptionHandling;
+using ProtechEcommerce.API.Swagger;
 using ProtechEcommerce.Application;
 using ProtechEcommerce.Infrastructure;
 
@@ -9,12 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
 {
     options.EnableAnnotations();
     options.CustomSchemaIds(ObterNomeSchema);
+    options.SchemaFilter<SwaggerExampleSchemaFilter>();
+    options.ParameterFilter<SwaggerExampleParameterFilter>();
 });
 
 static string ObterNomeSchema(Type type)
@@ -50,6 +54,8 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
+
+await app.Services.MigrarEPopularAsync();
 
 if (app.Environment.IsDevelopment())
 {
