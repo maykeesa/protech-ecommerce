@@ -12,6 +12,7 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
         {
             EntityNotFoundException => (StatusCodes.Status404NotFound, "Recurso nao encontrado", exception.Message),
             ServiceException => (StatusCodes.Status400BadRequest, "Erro de regra de negocio", exception.Message),
+            BadHttpRequestException badRequest => (badRequest.StatusCode, "Parametro invalido na requisicao", badRequest.Message),
             _ => (StatusCodes.Status500InternalServerError, "Erro interno do servidor", "Ocorreu um erro inesperado. Tente novamente mais tarde.")
         };
 
